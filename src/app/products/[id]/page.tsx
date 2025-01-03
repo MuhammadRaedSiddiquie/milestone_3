@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import Card from '@/app/component/Card/Card';
 import Link from 'next/link';
 import Header from '@/app/component/Header/Header';
+import Categories from '@/app/component/Categories/Categories';
 
 
 interface ITodo {
@@ -62,13 +63,7 @@ export default function ProductDetails({ params }: { params: IParams }) {
     return (
         <>
             <Header searchQuery='' setSearchQuery={() => ''}></Header>
-            <section className="w-full h-[60px] bg-white flex items-center justify-around">
-                <Link href={`/`}><span className='flex py-[8px] px-[15px] border-1 border-[#ebebeb] hover:shadow-[#cccccc] rounded-full bg-white shadow-[0_0_20px_2px] shadow-[#e1e1e1]'><h3 className="montserrat-semibold text-sm text-black">Home</h3></span></Link>
-                <Link href={`/products/category/jewelery`}><span className='flex py-[8px] px-[15px] border-1 border-[#ebebeb] hover:shadow-[#cccccc] rounded-full bg-white shadow-[0_0_20px_2px] shadow-[#e1e1e1]'><h3 className="montserrat-semibold text-sm text-black">Jewelery</h3></span></Link>
-                <Link href={`/products/category/men's clothing`}><span className='flex py-[8px] px-[15px] border-1 border-[#ebebeb] hover:shadow-[#cccccc] rounded-full bg-white shadow-[0_0_20px_2px] shadow-[#e1e1e1]'><h3 className="montserrat-semibold text-sm text-black">Men Clothing</h3></span></Link>
-                <Link href={`/products/category/electronics`}><span className='flex py-[8px] px-[15px] border-1 border-[#ebebeb] hover:shadow-[#cccccc] rounded-full bg-white shadow-[0_0_20px_2px] shadow-[#e1e1e1]'><h3 className="montserrat-semibold text-sm text-black">Electronics</h3></span></Link>
-                <Link href={`/products/category/women's clothing`}><span className='flex py-[8px] px-[15px] border-1 border-[#ebebeb] hover:shadow-[#cccccc] rounded-full bg-white shadow-[0_0_20px_2px] shadow-[#e1e1e1]'><h3 className="montserrat-semibold text-sm text-black">Women Clothing</h3></span></Link>
-            </section>
+            <Categories></Categories>
             <main className='w-full flex flex-col items-center justify-start'>
 
                 {

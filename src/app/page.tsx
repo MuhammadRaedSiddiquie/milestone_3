@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link';
 import Card from './component/Card/Card';
 import Header from './component/Header/Header';
+import Categories from './component/Categories/Categories';
 
 
 
@@ -46,13 +47,7 @@ export default function Home() {
     return (
         <>
             <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery}></Header>
-            <section className="w-full h-[60px] bg-white flex items-center justify-around">
-                <Link href={`/`}><span className='flex py-[8px] px-[15px] border-1 border-[#ebebeb] hover:shadow-[#cccccc] rounded-full bg-white shadow-[0_0_20px_2px] shadow-[#e1e1e1]'><h3 className="montserrat-semibold text-sm text-black">Home</h3></span></Link>
-                <Link href={`/products/category/jewelery`}><span className='flex py-[8px] px-[15px] border-1 border-[#ebebeb] hover:shadow-[#cccccc] rounded-full bg-white shadow-[0_0_20px_2px] shadow-[#e1e1e1]'><h3 className="montserrat-semibold text-sm text-black">Jewelery</h3></span></Link>
-                <Link href={`/products/category/men's clothing`}><span className='flex py-[8px] px-[15px] border-1 border-[#ebebeb] hover:shadow-[#cccccc] rounded-full bg-white shadow-[0_0_20px_2px] shadow-[#e1e1e1]'><h3 className="montserrat-semibold text-sm text-black">Men Clothing</h3></span></Link>
-                <Link href={`/products/category/electronics`}><span className='flex py-[8px] px-[15px] border-1 border-[#ebebeb] hover:shadow-[#cccccc] rounded-full bg-white shadow-[0_0_20px_2px] shadow-[#e1e1e1]'><h3 className="montserrat-semibold text-sm text-black">Electronics</h3></span></Link>
-                <Link href={`/products/category/women's clothing`}><span className='flex py-[8px] px-[15px] border-1 border-[#ebebeb] hover:shadow-[#cccccc] rounded-full bg-white shadow-[0_0_20px_2px] shadow-[#e1e1e1]'><h3 className="montserrat-semibold text-sm text-black">Women Clothing</h3></span></Link>
-            </section>
+            <Categories></Categories>
             <section className='w-full h-screen bg-white flex items-center flex-col gap-[48px] py-[48px]' >
                 <div className='w-full flex flex-col items-center gap-[10px] max-md:text-center'>
                     <p className='montserrat-regular text-secondaryCol text-[18px] xxl:text-2xl'>Welcome To FakeStore</p>
