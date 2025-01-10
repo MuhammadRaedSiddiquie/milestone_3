@@ -44,7 +44,7 @@ export default function CategoryPage({ params }: { params: ICategory }) {
     }, [params.categoryname])
     return (
         <>
-            <Header searchQuery='' setSearchQuery={() => ''}></Header>
+            
             <Categories></Categories>
             <main className='w-full flex flex-col items-center justify-start'>
 

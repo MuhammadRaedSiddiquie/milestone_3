@@ -25,7 +25,7 @@ interface ITodo {
 export default function Home() {
     const [data, setData] = useState<ITodo[]>([]);
     const [isLoading, setLoading] = useState(true)
-    const [searchQuery, setSearchQuery] = useState<string>('');
+   
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -43,10 +43,10 @@ export default function Home() {
         fetchData();
 
     }, [])
-    const filteredData = data.filter((product) => product.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    
     return (
         <>
-            <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery}></Header>
+          
             <Categories></Categories>
             <section className='w-full h-screen bg-white flex items-center flex-col gap-[48px] py-[48px]' >
                 <div className='w-full flex flex-col items-center gap-[10px] max-md:text-center'>
@@ -57,7 +57,7 @@ export default function Home() {
 
                     {isLoading ? <div className='w-full h-screen bg-[#f5f5f5] bg-[url("/loader.gif")] bg-[length:500px_300px] bg-no-repeat bg-center absolute z-10'></div> :
 
-                        data ? filteredData.map((product) => (
+                        data ? data.map((product) => (
 
                             <Link href={`/products/${product.id}`} key={product.id} className='shadow-[0_0_20px_1px_#e3e3e3] rounded-[40px]'>
                                 <Card

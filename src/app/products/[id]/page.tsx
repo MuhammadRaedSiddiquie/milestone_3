@@ -1,5 +1,6 @@
 'use client'
 import { IoIosArrowForward } from 'react-icons/io';
+import { toast } from 'react-toastify';
 import { FaEye } from 'react-icons/fa';
 import { CiHeart, CiShoppingCart } from 'react-icons/ci';
 import { FaStar } from "react-icons/fa6";
@@ -10,6 +11,29 @@ import Card from '@/app/component/Card/Card';
 import Link from 'next/link';
 import Header from '@/app/component/Header/Header';
 import Categories from '@/app/component/Categories/Categories';
+import { useRouter } from 'next/navigation';
+
+function Alert() {
+    toast.error('Product Already In Cart', {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        progress: undefined,
+        theme: "colored",
+    });
+}
+function Alert2() {
+    toast.success('Product Added To Your Cart', {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        progress: undefined,
+        theme: "light",
+    });
+}
+
 
 
 interface ITodo {
@@ -23,31 +47,40 @@ interface ITodo {
         rate: number;
         count: number;
     };
+
 }
 interface IParams {
     id: string;
 }
 
 
+
 export default function ProductDetails({ params }: { params: IParams }) {
+    const router = useRouter();
     const [data, setData] = useState<ITodo | null>(null);
     const [products, setProducts] = useState<ITodo[]>([]);
     const [isLoading, setLoading] = useState(true)
     useEffect(() => {
+
         const fetchData = async () => {
             try {
                 const response = await fetch(`https://fakestoreapi.com/products/${params.id}`);
+
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 const parsedResponse = await response.json();
+
                 setData(parsedResponse)
+
                 const response2 = await fetch(`https://fakestoreapi.com/products/`);
                 if (!response2.ok) {
                     throw new Error(`HTTP error! Status: ${response2.status}`);
                 }
                 const parsedResponse2 = await response2.json();
                 setProducts(parsedResponse2)
+
+
                 setTimeout(() => {
                     setLoading(false)
                 }, 1000)
@@ -58,6 +91,38 @@ export default function ProductDetails({ params }: { params: IParams }) {
         fetchData();
 
     }, [params.id])
+
+    console.log(JSON.parse(localStorage.getItem('store') || '[]'), "==>before")
+    const handleAddToCart = () => {
+        try {
+            const storeItems = JSON.parse(localStorage.getItem('store') || '[]')
+            const newItems = {
+                id: data?.id,
+                image: data?.image,
+                title: data?.title,
+                price: data?.price,
+                quantity: 1,
+
+            }
+            const existingItem = storeItems.find((item: any) => item.id === newItems.id);
+
+            if (existingItem) {
+                // existingItem.quantity += 1;
+                Alert();
+
+            } else {
+                storeItems.push(newItems)
+                Alert2();
+            }
+            localStorage.setItem('store', JSON.stringify(storeItems))
+            // router.push('/Cart')
+            console.log(JSON.parse(localStorage.getItem('store') || '[]'), "==>after")
+        }
+        catch (error) {
+            alert(error)
+        }
+
+    }
 
 
     return (
@@ -114,12 +179,14 @@ export default function ProductDetails({ params }: { params: IParams }) {
                                         </div>
                                         <div className='flex gap-[10px] items-center justify-start mt-10'>
 
-                                            <button className='bg-blueCol text-sm text-white montserrat-bold rounded-[5px] py-[10px] px-[20px] hover:bg-blueHov xxl:text-xl'>
+                                            <button className='bg-blueCol text-sm text-white montserrat-bold rounded-[5px] py-[10px] px-[20px] hover:bg-blueHov xxl:text-xl'
+                                                onClick={handleAddToCart}>
                                                 Select Options</button>
                                             <div className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#e3e3e3]'><CiHeart /></div>
                                             <div className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#e3e3e3]'><CiShoppingCart /></div>
                                             <div className='px-[10px] py-[10px] rounded-[50%] border-[1px] border-primaryCol hover:bg-[#e3e3e3]'><FaEye /></div>
                                         </div>
+
                                     </div>
 
 
